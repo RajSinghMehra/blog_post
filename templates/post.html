@@ -41,8 +41,14 @@
         {% if current_user.id != 1 %}
         <!-- Comments Area -->
         <!-- TODO: Add a CKEditor for commenting below -->
-         {{ ckeditor.load()}} {{ckeditor.config(name='comment_body')}}
-         {{render_form(form, novalidate=True, button_map={'submit':'primary'})}}
+         <!-- we must need to write the following three lines in the sequence otherwise there will be an error on ckeditor text area. -->
+          <!-- first write render_form() -->
+          {{render_form(form, novalidate=True, button_map={"submit": "primary"}) }}          
+          <!-- after render_form() write ckeditor.load() -->
+          {{ ckeditor.load() }} 
+          <!-- after ckeditor.load() write ckeditor.config() -->
+           <!-- name = 'must be equal to the name of ckeditor text area input.' -->
+          {{ ckeditor.config(name='comment_body') }} 
         {% endif %}
         <div class="comment">
           <!-- TODO: Show all the comments on a post -->
